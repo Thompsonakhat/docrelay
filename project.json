@@ -1,0 +1,561 @@
+{
+  "projectId": "b84d8534-ae74-451c-b67d-da68a0524ebe",
+  "commands": [
+    {
+      "command": "/addfaq",
+      "description": "Creates a new FAQ entry.",
+      "usage": "/addfaq Question | Answer",
+      "examples": [
+        "Admin: /addfaq How do I cancel? | Open settings and choose cancel. → Bot: FAQ saved"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/admin",
+      "description": "Shows the available admin controls.",
+      "usage": "/admin",
+      "examples": [
+        "Admin: /admin → Bot: Admin commands: /addfaq, /upload, /reindex, /review, /analytics"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/analytics",
+      "description": "Shows support volume, answer quality, and escalation summaries.",
+      "usage": "/analytics",
+      "examples": [
+        "Admin: /analytics → Bot: Questions, answers, low confidence, escalations, feedback count"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/ask",
+      "description": "Answers a support question using indexed FAQs and documents.",
+      "usage": "/ask How do I reset my password?",
+      "examples": [
+        "User: /ask How do I reset my password? → Bot: grounded answer with source names"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/escalate",
+      "description": "Escalates the current conversation to human support.",
+      "usage": "/escalate Need a human to review this",
+      "examples": [
+        "User: /escalate Billing issue still unresolved → Bot: Ticket created"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/faq",
+      "description": "Shows top FAQs or FAQs matching a keyword.",
+      "usage": "/faq billing",
+      "examples": [
+        "User: /faq → Bot: top FAQ entries",
+        "User: /faq billing → Bot: matching billing FAQs"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/feedback",
+      "description": "Rates the last answer and optionally leaves a comment.",
+      "usage": "/feedback helpful Solved it",
+      "examples": [
+        "User: /feedback helpful → Bot: Thanks. Your feedback was saved.",
+        "User: /feedback bad Missing billing steps → Bot: Thanks. Your feedback was saved."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/forgetme",
+      "description": "Clears the user’s stored memory summary and message memory.",
+      "usage": "/forgetme",
+      "examples": [
+        "User: /forgetme → Bot: Done. I've cleared your stored memory and profile summary."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/help",
+      "description": "Shows the supported commands, support scope, and escalation options.",
+      "usage": "/help",
+      "examples": [
+        "User: /help → Bot: Public commands and admin command overview."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/memory",
+      "description": "Shows the short stored memory summary for the current user.",
+      "usage": "/memory",
+      "examples": [
+        "User: /memory → Bot: Recent support topics..."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/reindex",
+      "description": "Rebuilds the retrieval index for FAQs and documents.",
+      "usage": "/reindex",
+      "examples": [
+        "Admin: /reindex → Bot: Reindex finished. FAQs: X. Documents: Y. Chunks: Z."
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/reset",
+      "description": "Clears remembered conversation memory for the current user.",
+      "usage": "/reset",
+      "examples": [
+        "User: /reset → Bot: Your conversation memory has been cleared."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/review",
+      "description": "Reviews unanswered, low-confidence, or poorly rated questions.",
+      "usage": "/review",
+      "examples": [
+        "Admin: /review → Bot: review queue items"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/sources",
+      "description": "Shows the source snippets or documents used for the last answer.",
+      "usage": "/sources",
+      "examples": [
+        "User: /sources → Bot: source titles and snippets from the last grounded answer"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/start",
+      "description": "Welcomes the user and explains how to ask support questions.",
+      "usage": "/start",
+      "examples": [
+        "User: /start → Bot: Welcome to DocRelay. I answer support questions using approved FAQs and support documents."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/status",
+      "description": "Checks the status of the latest open support escalation.",
+      "usage": "/status",
+      "examples": [
+        "User: /status → Bot: Ticket DOC-12345678 is currently open."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/upload",
+      "description": "Starts document upload intake for support content indexing.",
+      "usage": "/upload",
+      "examples": [
+        "Admin: /upload → Bot: Send a text document as your next message..."
+      ],
+      "notes": "Admin-only. Accepts plain text-like uploads."
+    }
+  ],
+  "aiMessages": [
+    {
+      "role": "user",
+      "content": "Build an AI agent that auto-answers support questions using your docs and FAQs"
+    },
+    {
+      "role": "assistant",
+      "content": "Built the first complete DocRelay Telegram bot with grounded support Q&A, Mongo-backed memory, escalation, admin tools, logging, and polling safety.\n\nFiles touched (39): .env.sample, DOCS.md, README.md, package.json, project.json, src/bot.js…\nValidation: ✅ project passes syntax/basic checks after this edit."
+    }
+  ],
+  "createdBy": "695397c85603fcac4c8ea626",
+  "source": "ai-cold-start",
+  "description": "",
+  "platform": "telegram",
+  "usesWebApp": false,
+  "telegramKind": "bot",
+  "planMarkdown": "Bot: DocRelay\n\nSummary:\nA Telegram support assistant that answers user questions using indexed product documentation and FAQs, escalates unclear cases to human support, and logs interactions for continuous improvement. The bot runs as a single Node.js ESM service using grammY, with MongoDB for persistence and optional object/filesystem storage for source documents.\n\nProduct goals:\nProvide instant, accurate answers to common support questions from documentation and FAQs; reduce repetitive human support workload; gracefully escalate when confidence is low or the user requests a human; keep answers grounded in approved sources; enable admins to manage content ingestion, review unanswered questions, and improve coverage over time.\n\nHigh-level architecture:\nUse a single-process Node.js ESM service built with grammY. The bot receives Telegram updates via webhook or long polling, normalizes incoming messages, and routes them through middleware for auth, rate limiting, session context, logging, and command handling. For support Q&A, the core pipeline is: user message -> intent detection -> retrieval over indexed docs/FAQs -> answer generation grounded in retrieved passages -> confidence check -> response with citations/snippets -> optional escalation. Source content is ingested from admin-uploaded files or pasted FAQ entries, stored in object/filesystem storage if needed, parsed into chunks, embedded/indexed, and saved in MongoDB along with metadata. Conversation history, user state, feedback, and escalation tickets are also stored in MongoDB. Admin workflows include content sync/reindex, FAQ CRUD, review of low-confidence questions, and analytics summaries. Keep AI provider integration abstracted behind a service interface so retrieval, reranking, and generation can be swapped without changing bot logic.\n\nData model:\nCore collections: users (telegramid, profile, language, roles, lastseen); conversations (userid, status, tags, lastmessageat); messages (conversationid, sender, text, intent, answerquality, sourcerefs, createdat); documents (title, sourcetype, storagepath, status, version, createdby, timestamps); documentchunks (documentid, chunktext, chunkindex, embedding/vector data or retrieval fields, metadata); faqs (question, answer, tags, status, priority, updatedby); supporttickets (conversationid, reason, transcriptrefs, status, assignee, timestamps); feedback (messageid, userid, rating, comment); adminjobs (type, status, startedat, finishedat, result). If embeddings are stored externally or computed differently, still keep chunk metadata and retrieval identifiers in MongoDB. Add indexes on telegramid, conversationid, status, tags, updated timestamps, and searchable fields.\n\nKey flows:\n1) User asks a question: bot checks language/session, retrieves the most relevant FAQ/doc chunks, generates a concise answer grounded in sources, and sends the answer plus suggested follow-up actions. 2) Low-confidence path: if retrieval quality is poor or the model signals uncertainty, bot responds honestly, asks a clarifying question, or offers escalation. 3) Human escalation: user triggers escalation or confidence remains low; bot creates a support ticket, stores transcript context, notifies admins/support chat if configured, and informs the user of next steps. 4) Admin content ingestion: admin uploads docs or submits FAQ entries; bot/service parses content, chunks it, indexes it, and marks it active after validation. 5) Feedback loop: users can rate answers; low-rated or unanswered questions are queued for admin review to improve docs/FAQs. 6) Maintenance flow: admin runs reindex/sync jobs, reviews analytics on common intents and failed answers, and updates content accordingly.\n\nTech stack:\nNode.js with ESM, grammY for Telegram bot framework, MongoDB for persistence, and a modular AI integration layer for embeddings, retrieval, reranking, and answer generation. Use MongoDB collections for bot state, content metadata, conversations, and support tickets. Use object storage or filesystem storage for uploaded documents when raw files must be retained. Recommended internal modules: bot entrypoint, grammY middleware, command handlers, session/context service, retrieval service, answer orchestration service, content ingestion/parser service, ticketing/escalation service, admin tools, and observability/logger module. Configuration comes from environment variables, including TELEGRAMBOTTOKEN and MongoDB connection settings.\n\nNon-functional requirements:\nProduction priorities: grounded answers only, predictable fallback behavior, and simple single-service operations. Implement source citation tracking, confidence thresholds, and refusal rules to avoid hallucinations. Add input validation, admin authorization, per-user throttling, structured logging, health checks, and graceful shutdown. Ensure privacy by minimizing stored personal data and defining retention policies for messages and files. Make ingestion idempotent and reindexing resumable. Support multilingual answering if docs allow, but default to the source language when uncertain. Monitor answer quality, retrieval hit rates, escalation rates, and admin review backlog. Design modules so the AI provider and retrieval strategy can evolve without major refactors.\n\nBot commands:\n• /start — Initialize the bot and explain how to ask support questions. (usage: /start) [user]\n• /help — Show supported actions, support scope, and escalation options. (usage: /help) [user]\n• /ask — Ask a support question using docs and FAQs as the answer source. (usage: /ask How do I reset my account password?) [user]\n• /faq — Show top FAQs or FAQs matching a keyword. (usage: /faq billing) [user]\n• /sources — Show the source snippets or documents used for the last answer. (usage: /sources) [user]\n• /escalate — Escalate the current conversation to human support. (usage: /escalate) [user]\n• /feedback — Rate the last answer and optionally leave a comment. (usage: /feedback helpful) [user]\n• /status — Check the status of an open support escalation. (usage: /status) [user]\n• /admin — Open the admin control options for content and support review. (usage: /admin) [admin]\n• /addfaq — Create a new FAQ entry for future answers. (usage: /addfaq Question | Answer) [admin]\n• /upload — Upload a support document for parsing and indexing. (usage: /upload) [admin]\n• /reindex — Rebuild the retrieval index for documents and FAQs. (usage: /reindex) [admin]\n• /review — Review unanswered, low-confidence, or poorly rated questions. (usage: /review) [admin]\n• /analytics — View support volume, answer quality, and escalation summaries. (usage: /analytics) [admin]\n",
+  "planSections": {
+    "productGoals": "Provide instant, accurate answers to common support questions from documentation and FAQs; reduce repetitive human support workload; gracefully escalate when confidence is low or the user requests a human; keep answers grounded in approved sources; enable admins to manage content ingestion, review unanswered questions, and improve coverage over time.",
+    "highLevelArchitecture": "Use a single-process Node.js ESM service built with grammY. The bot receives Telegram updates via webhook or long polling, normalizes incoming messages, and routes them through middleware for auth, rate limiting, session context, logging, and command handling. For support Q&A, the core pipeline is: user message -> intent detection -> retrieval over indexed docs/FAQs -> answer generation grounded in retrieved passages -> confidence check -> response with citations/snippets -> optional escalation. Source content is ingested from admin-uploaded files or pasted FAQ entries, stored in object/filesystem storage if needed, parsed into chunks, embedded/indexed, and saved in MongoDB along with metadata. Conversation history, user state, feedback, and escalation tickets are also stored in MongoDB. Admin workflows include content sync/reindex, FAQ CRUD, review of low-confidence questions, and analytics summaries. Keep AI provider integration abstracted behind a service interface so retrieval, reranking, and generation can be swapped without changing bot logic.",
+    "dataModel": "Core collections: users (telegramid, profile, language, roles, lastseen); conversations (userid, status, tags, lastmessageat); messages (conversationid, sender, text, intent, answerquality, sourcerefs, createdat); documents (title, sourcetype, storagepath, status, version, createdby, timestamps); documentchunks (documentid, chunktext, chunkindex, embedding/vector data or retrieval fields, metadata); faqs (question, answer, tags, status, priority, updatedby); supporttickets (conversationid, reason, transcriptrefs, status, assignee, timestamps); feedback (messageid, userid, rating, comment); adminjobs (type, status, startedat, finishedat, result). If embeddings are stored externally or computed differently, still keep chunk metadata and retrieval identifiers in MongoDB. Add indexes on telegramid, conversationid, status, tags, updated timestamps, and searchable fields.",
+    "keyFlows": "1) User asks a question: bot checks language/session, retrieves the most relevant FAQ/doc chunks, generates a concise answer grounded in sources, and sends the answer plus suggested follow-up actions. 2) Low-confidence path: if retrieval quality is poor or the model signals uncertainty, bot responds honestly, asks a clarifying question, or offers escalation. 3) Human escalation: user triggers escalation or confidence remains low; bot creates a support ticket, stores transcript context, notifies admins/support chat if configured, and informs the user of next steps. 4) Admin content ingestion: admin uploads docs or submits FAQ entries; bot/service parses content, chunks it, indexes it, and marks it active after validation. 5) Feedback loop: users can rate answers; low-rated or unanswered questions are queued for admin review to improve docs/FAQs. 6) Maintenance flow: admin runs reindex/sync jobs, reviews analytics on common intents and failed answers, and updates content accordingly.",
+    "techStack": "Node.js with ESM, grammY for Telegram bot framework, MongoDB for persistence, and a modular AI integration layer for embeddings, retrieval, reranking, and answer generation. Use MongoDB collections for bot state, content metadata, conversations, and support tickets. Use object storage or filesystem storage for uploaded documents when raw files must be retained. Recommended internal modules: bot entrypoint, grammY middleware, command handlers, session/context service, retrieval service, answer orchestration service, content ingestion/parser service, ticketing/escalation service, admin tools, and observability/logger module. Configuration comes from environment variables, including TELEGRAMBOTTOKEN and MongoDB connection settings.",
+    "nonFunctional": "Production priorities: grounded answers only, predictable fallback behavior, and simple single-service operations. Implement source citation tracking, confidence thresholds, and refusal rules to avoid hallucinations. Add input validation, admin authorization, per-user throttling, structured logging, health checks, and graceful shutdown. Ensure privacy by minimizing stored personal data and defining retention policies for messages and files. Make ingestion idempotent and reindexing resumable. Support multilingual answering if docs allow, but default to the source language when uncertain. Monitor answer quality, retrieval hit rates, escalation rates, and admin review backlog. Design modules so the AI provider and retrieval strategy can evolve without major refactors."
+  },
+  "planCommands": [
+    {
+      "name": "/start",
+      "description": "Initialize the bot and explain how to ask support questions.",
+      "usage": "/start",
+      "category": "user"
+    },
+    {
+      "name": "/help",
+      "description": "Show supported actions, support scope, and escalation options.",
+      "usage": "/help",
+      "category": "user"
+    },
+    {
+      "name": "/ask",
+      "description": "Ask a support question using docs and FAQs as the answer source.",
+      "usage": "/ask How do I reset my account password?",
+      "category": "user"
+    },
+    {
+      "name": "/faq",
+      "description": "Show top FAQs or FAQs matching a keyword.",
+      "usage": "/faq billing",
+      "category": "user"
+    },
+    {
+      "name": "/sources",
+      "description": "Show the source snippets or documents used for the last answer.",
+      "usage": "/sources",
+      "category": "user"
+    },
+    {
+      "name": "/escalate",
+      "description": "Escalate the current conversation to human support.",
+      "usage": "/escalate",
+      "category": "user"
+    },
+    {
+      "name": "/feedback",
+      "description": "Rate the last answer and optionally leave a comment.",
+      "usage": "/feedback helpful",
+      "category": "user"
+    },
+    {
+      "name": "/status",
+      "description": "Check the status of an open support escalation.",
+      "usage": "/status",
+      "category": "user"
+    },
+    {
+      "name": "/admin",
+      "description": "Open the admin control options for content and support review.",
+      "usage": "/admin",
+      "category": "admin"
+    },
+    {
+      "name": "/addfaq",
+      "description": "Create a new FAQ entry for future answers.",
+      "usage": "/addfaq Question | Answer",
+      "category": "admin"
+    },
+    {
+      "name": "/upload",
+      "description": "Upload a support document for parsing and indexing.",
+      "usage": "/upload",
+      "category": "admin"
+    },
+    {
+      "name": "/reindex",
+      "description": "Rebuild the retrieval index for documents and FAQs.",
+      "usage": "/reindex",
+      "category": "admin"
+    },
+    {
+      "name": "/review",
+      "description": "Review unanswered, low-confidence, or poorly rated questions.",
+      "usage": "/review",
+      "category": "admin"
+    },
+    {
+      "name": "/analytics",
+      "description": "View support volume, answer quality, and escalation summaries.",
+      "usage": "/analytics",
+      "category": "admin"
+    }
+  ],
+  "envVarDocs": [
+    {
+      "key": "TELEGRAM_BOT_TOKEN",
+      "title": "Telegram Bot Token",
+      "description": "Authenticates the Telegram bot.",
+      "usage": "Used at boot to create the grammY bot client.",
+      "howToGet": "Create a bot with BotFather on Telegram and copy the token.",
+      "example": "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11",
+      "isSecret": true,
+      "required": true
+    },
+    {
+      "key": "MONGODB_URI",
+      "title": "MongoDB Connection String",
+      "description": "Stores conversations, FAQs, docs, tickets, feedback, and long-term memory.",
+      "usage": "Used by the shared MongoDB connection helper.",
+      "howToGet": "Create a MongoDB database and copy its connection URI.",
+      "example": "mongodb+srv://user:pass@cluster.example.mongodb.net/docrelay",
+      "isSecret": true,
+      "required": false
+    },
+    {
+      "key": "COOKMYBOTS_AI_ENDPOINT",
+      "title": "CookMyBots AI Endpoint",
+      "description": "Base URL for CookMyBots AI Gateway.",
+      "usage": "The bot appends /chat and /embeddings to this base URL.",
+      "howToGet": "Provided by CookMyBots.",
+      "example": "https://api.cookmybots.com/api/ai",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "COOKMYBOTS_AI_KEY",
+      "title": "CookMyBots AI Key",
+      "description": "Authorizes requests to CookMyBots AI Gateway.",
+      "usage": "Sent as a Bearer token for AI chat and embeddings requests.",
+      "howToGet": "Provided by CookMyBots.",
+      "example": "cmb_ai_xxxxx",
+      "isSecret": true,
+      "required": false
+    },
+    {
+      "key": "ADMIN_USER_IDS",
+      "title": "Admin User IDs",
+      "description": "Comma-separated Telegram user IDs allowed to run admin commands.",
+      "usage": "Checked by admin authorization middleware.",
+      "howToGet": "Use your Telegram numeric user ID.",
+      "example": "123456789,987654321",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "SUPPORT_CHAT_ID",
+      "title": "Support Chat ID",
+      "description": "Optional Telegram chat ID that receives escalation notifications.",
+      "usage": "Used when a support ticket is created.",
+      "howToGet": "Use a Telegram group or channel chat ID where support staff are present.",
+      "example": "-1001234567890",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "AI_TIMEOUT_MS",
+      "title": "AI Timeout",
+      "description": "Maximum time to wait for AI requests.",
+      "usage": "Used by AI gateway fetch timeout logic.",
+      "howToGet": "Set a numeric value in milliseconds.",
+      "example": "600000",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "AI_MAX_RETRIES",
+      "title": "AI Retry Count",
+      "description": "Reserved retry count for AI workflows.",
+      "usage": "Runtime tuning value for future retry policy and ops visibility.",
+      "howToGet": "Set a small positive number.",
+      "example": "2",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "CONCURRENCY",
+      "title": "Concurrency",
+      "description": "General runtime tuning value.",
+      "usage": "Available for operational tuning; current Telegram runner is safely capped for AI.",
+      "howToGet": "Set a positive integer.",
+      "example": "20",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "CONFIDENCE_THRESHOLD",
+      "title": "Confidence Threshold",
+      "description": "Minimum confidence for grounded answers before escalation is suggested.",
+      "usage": "Compared against the answer confidence returned by orchestration.",
+      "howToGet": "Set a decimal from 0 to 1.",
+      "example": "0.55",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "MAX_CONTEXT_TURNS",
+      "title": "Max Context Turns",
+      "description": "Maximum remembered conversation turns injected into AI context.",
+      "usage": "Limits prompt growth and memory usage.",
+      "howToGet": "Set a positive integer.",
+      "example": "12",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "MEMORY_LOG_INTERVAL_MS",
+      "title": "Memory Log Interval",
+      "description": "How often memory usage logs should be emitted.",
+      "usage": "Used by the runtime memory guard.",
+      "howToGet": "Set a numeric interval in milliseconds.",
+      "example": "60000",
+      "isSecret": false,
+      "required": false
+    },
+    {
+      "key": "DOCS_STORAGE_DIR",
+      "title": "Docs Storage Directory",
+      "description": "Local directory where uploaded support documents are saved.",
+      "usage": "Used by the upload intake service before chunking and indexing.",
+      "howToGet": "Set a writable path on disk.",
+      "example": "./data/docs",
+      "isSecret": false,
+      "required": false
+    }
+  ],
+  "commandDocs": [
+    {
+      "command": "/start",
+      "description": "Welcomes the user and explains how to ask support questions.",
+      "usage": "/start",
+      "examples": [
+        "User: /start → Bot: Welcome to DocRelay. I answer support questions using approved FAQs and support documents."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/help",
+      "description": "Shows the supported commands, support scope, and escalation options.",
+      "usage": "/help",
+      "examples": [
+        "User: /help → Bot: Public commands and admin command overview."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/ask",
+      "description": "Answers a support question using indexed FAQs and documents.",
+      "usage": "/ask How do I reset my password?",
+      "examples": [
+        "User: /ask How do I reset my password? → Bot: grounded answer with source names"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/faq",
+      "description": "Shows top FAQs or FAQs matching a keyword.",
+      "usage": "/faq billing",
+      "examples": [
+        "User: /faq → Bot: top FAQ entries",
+        "User: /faq billing → Bot: matching billing FAQs"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/sources",
+      "description": "Shows the source snippets or documents used for the last answer.",
+      "usage": "/sources",
+      "examples": [
+        "User: /sources → Bot: source titles and snippets from the last grounded answer"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/escalate",
+      "description": "Escalates the current conversation to human support.",
+      "usage": "/escalate Need a human to review this",
+      "examples": [
+        "User: /escalate Billing issue still unresolved → Bot: Ticket created"
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/feedback",
+      "description": "Rates the last answer and optionally leaves a comment.",
+      "usage": "/feedback helpful Solved it",
+      "examples": [
+        "User: /feedback helpful → Bot: Thanks. Your feedback was saved.",
+        "User: /feedback bad Missing billing steps → Bot: Thanks. Your feedback was saved."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/status",
+      "description": "Checks the status of the latest open support escalation.",
+      "usage": "/status",
+      "examples": [
+        "User: /status → Bot: Ticket DOC-12345678 is currently open."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/reset",
+      "description": "Clears remembered conversation memory for the current user.",
+      "usage": "/reset",
+      "examples": [
+        "User: /reset → Bot: Your conversation memory has been cleared."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/memory",
+      "description": "Shows the short stored memory summary for the current user.",
+      "usage": "/memory",
+      "examples": [
+        "User: /memory → Bot: Recent support topics..."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/forgetme",
+      "description": "Clears the user’s stored memory summary and message memory.",
+      "usage": "/forgetme",
+      "examples": [
+        "User: /forgetme → Bot: Done. I've cleared your stored memory and profile summary."
+      ],
+      "notes": "Public command."
+    },
+    {
+      "command": "/admin",
+      "description": "Shows the available admin controls.",
+      "usage": "/admin",
+      "examples": [
+        "Admin: /admin → Bot: Admin commands: /addfaq, /upload, /reindex, /review, /analytics"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/addfaq",
+      "description": "Creates a new FAQ entry.",
+      "usage": "/addfaq Question | Answer",
+      "examples": [
+        "Admin: /addfaq How do I cancel? | Open settings and choose cancel. → Bot: FAQ saved"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/upload",
+      "description": "Starts document upload intake for support content indexing.",
+      "usage": "/upload",
+      "examples": [
+        "Admin: /upload → Bot: Send a text document as your next message..."
+      ],
+      "notes": "Admin-only. Accepts plain text-like uploads."
+    },
+    {
+      "command": "/reindex",
+      "description": "Rebuilds the retrieval index for FAQs and documents.",
+      "usage": "/reindex",
+      "examples": [
+        "Admin: /reindex → Bot: Reindex finished. FAQs: X. Documents: Y. Chunks: Z."
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/review",
+      "description": "Reviews unanswered, low-confidence, or poorly rated questions.",
+      "usage": "/review",
+      "examples": [
+        "Admin: /review → Bot: review queue items"
+      ],
+      "notes": "Admin-only."
+    },
+    {
+      "command": "/analytics",
+      "description": "Shows support volume, answer quality, and escalation summaries.",
+      "usage": "/analytics",
+      "examples": [
+        "Admin: /analytics → Bot: Questions, answers, low confidence, escalations, feedback count"
+      ],
+      "notes": "Admin-only."
+    }
+  ],
+  "title": "DocRelay"
+}
